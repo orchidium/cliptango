@@ -1,2 +1,2 @@
-# videos
-Orchid ClipTango Frontend 
+# cliptango
+A Videos platform similar to YouTube

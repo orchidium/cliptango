@@ -195,6 +195,18 @@
 
     videoplayerTitle.innerText = data.title;
 
+    videoplayerStats.innerHTML = '';
+
+    var statsViews = document.createElement("span");
+    statsViews.dataset.l10nId = 'video-views';
+    statsViews.dataset.l10nArgs = '{"n": ' + data.views.length + '}';
+    videoplayerStats.appendChild(statsViews);
+
+    var statsSep = document.createElement("span");
+    statsSep.innerText = ' • ';
+    videoplayerStats.appendChild(statsSep);
+
+    var statsDate = document.createElement("span");
     var timePublished = new Date(data.published_at).toLocaleDateString(
       navigator.language,
       {
@@ -206,8 +218,9 @@
         hour12: true,
       }
     );
-    videoplayerStats.innerText =
-      data.views.length + " views - " + timePublished;
+    statsDate.innerText = timePublished;
+    videoplayerStats.appendChild(statsDate);
+
     videoplayerDescriptionText.innerText = data.description;
 
     // Controls
