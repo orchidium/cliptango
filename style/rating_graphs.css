@@ -1,0 +1,76 @@
+.rating-graphs li {
+  display: flex !important;
+}
+
+.rating-graphs li > .rating {
+  min-width: 3rem;
+  padding-inline-end: 1rem;
+  box-sizing: border-box;
+}
+
+.rating-graphs li > .progress {
+  width: 100%;
+  flex: 1;
+  height: 2.4rem;
+  border-radius: 1.2rem;
+  background: var(--background);
+  position: relative;
+}
+
+.rating-graphs li > .progress:before {
+  content: '';
+  width: 0;
+  height: 2.4rem;
+  border-radius: 1.2rem;
+  background: var(--accent-color);
+  position: absolute;
+  animation: graph-progress 1s cubic-bezier(0.2, 0.9, 0.1, 1) forwards 1s;
+}
+
+@keyframes graph-progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--progress);
+  }
+}
+
+.rating-graphs li > .users {
+  min-width: 3rem;
+  padding-inline-start: 1rem;
+  box-sizing: border-box;
+}
+
+/* Accent Colors */
+html[dir="ltr"] .rating-graphs .graph-1 > .progress:before {
+  background: linear-gradient(to right, #00a0e8, #00ddff);
+}
+html[dir="ltr"] .rating-graphs .graph-2 > .progress:before {
+  background: linear-gradient(to right, #40a060, #60e080);
+}
+html[dir="ltr"] .rating-graphs .graph-3 > .progress:before {
+  background: linear-gradient(to right, #ffc000, #ffe080);
+}
+html[dir="ltr"] .rating-graphs .graph-4 > .progress:before {
+  background: linear-gradient(to right, #ff6040, #ffa060);
+}
+html[dir="ltr"] .rating-graphs .graph-5 > .progress:before {
+  background: linear-gradient(to right, #c00040, #ff4060);
+}
+
+html[dir="rtl"] .rating-graphs .graph-1 > .progress:before {
+  background: linear-gradient(to left, #00a0e8, #00ddff);
+}
+html[dir="rtl"] .rating-graphs .graph-2 > .progress:before {
+  background: linear-gradient(to left, #40a060, #60e080);
+}
+html[dir="rtl"] .rating-graphs .graph-3 > .progress:before {
+  background: linear-gradient(to left, #ffc000, #ffe080);
+}
+html[dir="rtl"] .rating-graphs .graph-4 > .progress:before {
+  background: linear-gradient(to left, #ff6040, #ffa060);
+}
+html[dir="rtl"] .rating-graphs .graph-5 > .progress:before {
+  background: linear-gradient(to left, #c00040, #ff4060);
+}

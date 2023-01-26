@@ -225,7 +225,7 @@ var OrchidServices = {
 
     OrchidServices.get("profile/" + OrchidServices.userId()).then((data) => {
       data.followers.forEach((follower) => {
-        ["webstore", "articles"].forEach((platform) => {
+        ["videos", "articles"].forEach((platform) => {
           const doc = collection(db, platform);
           onSnapshot(doc, (querySnapshot) => {
             querySnapshot.docChanges().forEach((change) => {
@@ -579,7 +579,7 @@ var OrchidServices = {
   custom: {
     createStoreApp: async function os_createStoreApp(data) {
       var id = OrchidServices._generateUUID();
-      OrchidServices.set("webstore/" + id, {
+      OrchidServices.set("videos/" + id, {
         token: id,
         author_id: OrchidServices.userId(),
         teaser_url: data.teaser_url,

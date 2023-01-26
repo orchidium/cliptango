@@ -20,6 +20,11 @@
   visibility: visible;
 }
 
+#videoplayer > .scroll-content {
+  display: flex;
+  flex-direction: column;
+}
+
 .videoplayer-col {
   width: 100%;
 }
@@ -103,6 +108,7 @@
   max-width: 25rem;
   margin: 0.25rem 0.5rem;
   margin-inline-end: auto;
+  flex: 1;
 }
 
 .video-container > #controls .buttons #controls-volume::-moz-range-track {
@@ -186,19 +192,32 @@
   z-index: 1;
 }
 
+#recommended {
+  position: relative;
+  z-index: 1;
+}
+
 @media screen and (min-width: 1024px) and (orientation: landscape) {
-  #videoplayer {
+  #videoplayer,
+  #videoplayer > .scroll-content {
     flex-direction: row;
-    padding: 1.5rem 5vw 5vh;
-    box-sizing: border-box;
+  }
+
+  .videoplayer-col {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .videoplayer-col:first-child {
+    padding-inline-start: 5vw;
     padding-inline-end: 0.75rem;
   }
 
   .videoplayer-col:last-child {
-    width: 32rem;
+    min-width: 32rem;
+    max-width: 32rem;
     padding-inline-start: 0.75rem;
+    padding-inline-end: 5vw;
   }
 }

@@ -1,6 +1,5 @@
 .videos {
   justify-content: center;
-  background: var(--background);
   /* overflow: hidden; */
 }
 
@@ -86,7 +85,7 @@
 .video > .text-holder a {
   margin: 0;
   font-size: 1.4rem;
-  color: #ff6040;
+  color: var(--accent-color);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
