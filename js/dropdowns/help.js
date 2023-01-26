@@ -14,19 +14,19 @@
       var moreLink = document.getElementById("help-dropdown-more");
 
       buyLink.onclick = () => {
-        window.open('https://orchidfoss.github.io/?p=help/videos/buy-with-orchid-pay');
+        window.open('https://digitbyteg.github.io/?p=help/videos/buy-with-orchid-pay');
       };
 
       refundLink.onclick = () => {
-        window.open('https://orchidfoss.github.io/?p=help/videos/refund-safely-with-orchid-pay');
+        window.open('https://digitbyteg.github.io/?p=help/videos/refund-safely-with-orchid-pay');
       };
 
       syncLink.onclick = () => {
-        window.open('https://orchidfoss.github.io/?p=help/videos/sync-apps');
+        window.open('https://digitbyteg.github.io/?p=help/videos/sync-apps');
       };
 
       moreLink.onclick = () => {
-        window.open('https://orchidfoss.github.io/?p=help/videos');
+        window.open('https://digitbyteg.github.io/?p=help/videos');
       };
     });
   });

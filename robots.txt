@@ -10,4 +10,4 @@ Disallow: /lib
 Disallow: /locales
 Disallow: /services
 
-Sitemap: https://orchidfoss.github.io/videos/sitemap.xml
+Sitemap: https://digitbyteg.github.io/videos/sitemap.xml

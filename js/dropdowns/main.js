@@ -23,7 +23,7 @@
             "profile/" + OrchidServices.userId(),
             function (data) {
               profileButton.onclick = () => {
-                window.open('https://orchidfoss.github.io/profile/?user_id=' + data.token);
+                window.open('https://digitbyteg.github.io/profile/?user_id=' + data.token);
               };
               profileUsername.textContent = data.username;
               profileAvatar.alt = data.username;
@@ -52,15 +52,15 @@
       }
 
       loginButton.onclick = () => {
-        window.open('https://orchidfoss.github.io/auth/?redirect=' + encodeURI(location.href), 'popUpWindow', 'width=854,height=480,left=64,top=48,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
+        window.open('https://digitbyteg.github.io/auth/?redirect=' + encodeURI(location.href), 'popUpWindow', 'width=854,height=480,left=64,top=48,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
       };
 
       signUpButton.onclick = () => {
-        window.open('https://orchidfoss.github.io/auth/signup.html?redirect=' + encodeURI(location.href), 'popUpWindow', 'width=854,height=480,left=64,top=48,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
+        window.open('https://digitbyteg.github.io/auth/signup.html?redirect=' + encodeURI(location.href), 'popUpWindow', 'width=854,height=480,left=64,top=48,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
       };
 
       switchUserButton.onclick = () => {
-        window.open('https://orchidfoss.github.io/auth/?redirect=' + encodeURI(location.href), 'popUpWindow', 'width=854,height=480,left=64,top=48,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
+        window.open('https://digitbyteg.github.io/auth/?redirect=' + encodeURI(location.href), 'popUpWindow', 'width=854,height=480,left=64,top=48,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
       };
 
       logOutButton.onclick = () => {
@@ -81,15 +81,15 @@
       };
 
       termsButton.onclick = () => {
-        window.open('https://orchidfoss.github.io/?p=terms-of-service');
+        window.open('https://digitbyteg.github.io/?p=terms-of-service');
       };
 
       privacyButton.onclick = () => {
-        window.open('https://orchidfoss.github.io/?p=privacy-policy');
+        window.open('https://digitbyteg.github.io/?p=privacy-policy');
       };
 
       guidelinesButton.onclick = () => {
-        window.open('https://orchidfoss.github.io/?p=community-guidelines');
+        window.open('https://digitbyteg.github.io/?p=community-guidelines');
       };
     });
   });
