@@ -1,0 +1,79 @@
+:root {
+  --accent-color: #ff6040;
+  --background: #e7e9ec;
+  --background-plus: #fff;
+  --text-color: #333;
+  --translucent: rgba(0,0,0,0.05);
+  --translucent-plus: rgba(0,0,0,0.1);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --background: #101214;
+    --background-plus: #212325;
+    --text-color: #e7e7e7;
+    --translucent: rgba(255,255,255,0.05);
+    --translucent-plus: rgba(255,255,255,0.1);
+  }
+}
+
+html, body {
+  font-family: system-ui, sans-serif;
+  font-size: 10px;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--background);
+  color: var(--text-color);
+  overflow: hidden;
+  color-scheme: light dark;
+}
+
+#upload-form {
+  margin: 20px 0;
+}
+
+.video-card {
+  width: 400px;
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid gray;
+}
+
+.video-title {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.video-description {
+  margin-bottom: 20px;
+}
+
+.video-controls {
+  margin-top: 10px;
+}
+
+.video-controls button {
+  margin-right: 10px;
+}
+
+.content {
+  position: fixed;
+  left: 0;
+  top: 5rem;
+  width: 100%;
+  height: calc(100% - 5rem);
+  background: var(--background);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#upload-form {
+  margin: 0 1.5rem 1rem;
+  background: var(--background-plus);
+  padding: 1rem;
+  border-radius: 0.4rem;
+}

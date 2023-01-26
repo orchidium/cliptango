@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ClipTango</title>
+    <link rel="stylesheet" type="text/css" href="style/gaia_icons/gaia-icons.css">
+    <link rel="stylesheet" type="text/css" href="style/gaia_icons/bidi-helper.css">
+    <link rel="stylesheet" type="text/css" href="style/seekbars.css">
+    <link rel="stylesheet" type="text/css" href="style/main.css">
+    <link rel="stylesheet" type="text/css" href="style/header.css">
+    <link rel="stylesheet" type="text/css" href="style/videos.css">
+    <link rel="stylesheet" type="text/css" href="style/videoplayer.css">
+  </head>
+  <body>
+    <header>
+      <a href="#" data-icon="menu"></a>
+      <a href="#" id="home-button" class="logo">ClipTango</a>
+    </header>
+
+    <div class="content">
+      <form id="upload-form">
+        <label for="video-file">Upload Video:</label>
+        <input type="file" id="video-file" accept="video/*">
+        <br>
+        <label for="thumbnail-file">Upload Thumbnail:</label>
+        <input type="file" id="thumbnail-file" accept="image/*">
+        <br>
+        <label for="title">Title:</label>
+        <input type="text" id="title" placeholder="Enter title">
+        <br>
+        <label for="description">Description:</label>
+        <textarea id="description"></textarea>
+        <br>
+        <button type="submit">Upload</button>
+      </form>
+      <div id="videos" class="videos grid"></div>
+    </div>
+
+    <div id="videoplayer">
+      <div class="videoplayer-col">
+        <div class="video-container" id="videoplayer-container">
+          <video src="" id="videoplayer-element-ambient" autoplay></video>
+          <video src="" id="videoplayer-element" autoplay></video>
+          <div id="controls">
+            <div class="buttons">
+              <button id="controls-playpause-button" data-icon="play"></button>
+              <button id="controls-mute-button" data-icon="sound-max"></button>
+              <input type="range" id="controls-volume">
+              <span id="controls-time"></span>
+              <button id="controls-fullscreen-button" data-icon="fullscreen"></button>
+            </div>
+            <input type="range" id="controls-current-time">
+          </div>
+        </div>
+        <h1 id="videoplayer-title"></h1>
+        <date id="videoplayer-stats"></date>
+        <div id="videoplayer-description">
+          <div id="videoplayer-description-text"></div>
+          <div id="videoplayer-description-resize">Read More</div>
+        </div>
+      </div>
+      <div class="videoplayer-col videos" id="recommended"></div>
+    </div>
+
+    <script type="module" src="/services/script.js"></script>
+    <script src="js/upload.js"></script>
+    <script defer src="js/videos.js"></script>
+  </body>
+</html>

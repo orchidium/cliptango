@@ -1,0 +1,204 @@
+#videoplayer {
+  position: fixed;
+  left: 0;
+  top: 5rem;
+  width: 100%;
+  height: calc(100% - 5rem);
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  transition: all 0.5s cubic-bezier(0.2, 0.9, 0.1, 1);
+  transform: translateY(100%);
+  visibility: hidden;
+}
+
+#videoplayer.visible {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.videoplayer-col {
+  width: 100%;
+}
+
+.video-container {
+  width: 100%;
+  object-fit: contain;
+  aspect-ratio: 16 / 9;
+  position: relative;
+}
+
+.video-container > video {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+@media screen and (prefers-color-scheme: light) {
+  .video-container > #videoplayer-element-ambient {
+    display: none;
+  }
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  .video-container > #videoplayer-element-ambient {
+    filter: blur(25vw);
+  }
+}
+
+.video-container > #controls {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.5rem;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3));
+  transition: all 0.5s cubic-bezier(0.2, 0.9, 0.1, 1);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.video-container > #controls:active,
+.video-container > #controls.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.video-container:fullscreen > #controls {
+  padding: 64px 64px 48px;
+  box-sizing: border-box;
+}
+
+.video-container > #controls .buttons {
+  padding: 0 1rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: 4rem;
+  display: flex;
+}
+
+.video-container > #controls .buttons button {
+  width: 4rem;
+  height: 4rem;
+  line-height: 4rem;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.video-container > #controls .buttons button[data-icon]::before {
+  font-size: 2rem;
+}
+
+.video-container > #controls .buttons #controls-volume {
+  max-width: 25rem;
+  margin: 0.25rem 0.5rem;
+  margin-inline-end: auto;
+}
+
+.video-container > #controls .buttons #controls-volume::-moz-range-track {
+  background: rgba(0,0,0,0.3);
+}
+
+.video-container > #controls #controls-current-time {
+  margin: 0 1rem;
+  width: calc(100% - 2rem);
+  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+}
+
+.video-container > #controls #controls-current-time::-moz-range-track,
+.video-container > #controls #controls-current-time::-moz-range-progress,
+.video-container > #controls #controls-current-time::-moz-range-thumb {
+  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+}
+
+.video-container > #controls:not(:hover) #controls-current-time {
+  height: 0.4rem;
+  width: 100%;
+  margin: 0;
+}
+
+.video-container > #controls #controls-current-time::-moz-range-track {
+  background: rgba(0,0,0,0.3);
+}
+
+.video-container > #controls:not(:hover) #controls-current-time::-moz-range-track {
+  height: 0.4rem;
+  border-radius: 0.2rem;
+}
+
+.video-container > #controls:not(:hover) #controls-current-time::-moz-range-progress {
+  height: 0.4rem;
+  border-radius: 0.2rem;
+}
+
+.video-container > #controls:not(:hover) #controls-current-time::-moz-range-thumb {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.video-container > #controls .buttons #controls-time {
+  font-size: 1.4rem;
+  height: 4rem;
+  line-height: 4rem;
+}
+
+#videoplayer-title {
+  font-size: 2.4rem;
+  font-weight: normal;
+  margin: 1rem 1.5rem 0;
+  color: var(--text-color);
+  position: relative;
+  z-index: 1;
+}
+
+#videoplayer-stats {
+  font-size: 1.4rem;
+  font-weight: normal;
+  margin: 0 1.5rem;
+  color: var(--text-color);
+  opacity: 0.5;
+  position: relative;
+  z-index: 1;
+}
+
+#videoplayer-description {
+  width: calc(100% - 3rem);
+  padding: 1rem 1.5rem;
+  box-sizing: border-box;
+  background: var(--background-plus);
+  border-radius: 1.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+  margin: 1rem 1.5rem 1.5rem;
+  font-size: 1.6rem;
+  font-weight: normal;
+  color: var(--text-color);
+  position: relative;
+  z-index: 1;
+}
+
+@media screen and (min-width: 1024px) and (orientation: landscape) {
+  #videoplayer {
+    flex-direction: row;
+    padding: 1.5rem 5vw 5vh;
+    box-sizing: border-box;
+  }
+
+  .videoplayer-col:first-child {
+    padding-inline-end: 0.75rem;
+  }
+
+  .videoplayer-col:last-child {
+    width: 32rem;
+    padding-inline-start: 0.75rem;
+  }
+}

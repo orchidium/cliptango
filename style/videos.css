@@ -1,0 +1,95 @@
+.videos {
+  justify-content: center;
+  background: var(--background);
+  /* overflow: hidden; */
+}
+
+.videos.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(29rem, 32rem));
+}
+
+.video {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0.5rem;
+  text-decoration: none;
+  border-radius: 0.4rem;
+}
+
+.video:hover {
+  background: var(--translucent);
+}
+
+.video:active {
+  background: var(--translucent-plus);
+}
+
+.video > .thumbnails {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+}
+
+.video > .thumbnails .thumbnail {
+  background: var(--background-plus);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  border-radius: 1rem;
+}
+
+.video > .thumbnails .preview {
+  background: var(--background-plus);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.video:hover > .thumbnails .preview {
+  transition: all 0.3s ease 0.5s;
+  opacity: 1;
+  visibility: visible;
+}
+
+.video > .text-holder {
+  padding: 0.4rem;
+  color: var(--text-color);
+}
+
+.video > .text-holder h3 {
+  margin: 0;
+  font-size: 1.6rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 2.2rem;
+  line-height: 2.2rem;
+}
+
+.video > .text-holder p {
+  margin: 0;
+  font-size: 1.4rem;
+  opacity: 0.5;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 1.9rem;
+  line-height: 1.9rem;
+}
+
+.video > .text-holder a {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #ff6040;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 2.2rem;
+  line-height: 2.2rem;
+}
