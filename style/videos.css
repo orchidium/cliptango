@@ -5,14 +5,16 @@
 
 .videos.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(29rem, 32rem));
+  grid-template-columns: repeat(auto-fit, minmax(29rem, 31rem));
 }
 
 .video {
+  width: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   padding: 0.5rem;
+  box-sizing: border-box;
   text-decoration: none;
   border-radius: 0.4rem;
 }

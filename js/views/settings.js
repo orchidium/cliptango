@@ -57,15 +57,6 @@
     root.dataset.accentScheme = darkModeCheckbox.checked ? "light" : "dark";
   });
 
-  // Auto Update (Service Worker Needed)
-  var autoUpdateEnabled = (localStorage.getItem('ws.videos.auto_update') == 'true') || true;
-  var autoUpdateCheckbox = document.getElementById('settings-auto-update');
-
-  autoUpdateCheckbox.checked = autoUpdateEnabled;
-  autoUpdateCheckbox.addEventListener('change', function() {
-    localStorage.setItem('ws.videos.autoUpdate', autoUpdateCheckbox.checked);
-  });
-
   // Language
   var selectedLanguage = localStorage.getItem("ws.videos.language") || navigator.language;
   var languagesDropdown = document.getElementById('settings-languages');

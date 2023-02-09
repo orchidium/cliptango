@@ -79,10 +79,10 @@
   /** Button
    ---------------------------------------------------------*/
 
-  --button-background: linear-gradient(to bottom, #fff, #f4f4f4);
-  --button-background-plus: linear-gradient(to bottom, #d8dadd, #ccced2);
-  --button-background-minus: linear-gradient(to bottom, #bcbec2, #c8cacd);
-  --button-background-list: linear-gradient(to bottom, #e7e9ec, #dbddf0);
+  --button-background: #fff;
+  --button-background-plus: #d8dadd;
+  --button-background-minus: #c8cacd;
+  --button-background-list: #e7e9ec;
 
   /** Links
    ---------------------------------------------------------*/
@@ -218,10 +218,10 @@
   /** Button
    ---------------------------------------------------------*/
 
-  --button-background: linear-gradient(to bottom, #303234, #2c2e30);
-  --button-background-plus: linear-gradient(to bottom, #383a3c, #343638);
-  --button-background-minus: linear-gradient(to bottom, #3c3e40, #404244);
-  --button-background-list: linear-gradient(to bottom, #181a1c, #101214);
+  --button-background: #303234;
+  --button-background-plus: #383a3c;
+  --button-background-minus: #404244;
+  --button-background-list: #181a1c;
 
   /** Links
    ---------------------------------------------------------*/
@@ -319,7 +319,8 @@
 }
 
 *,
-::placeholder {
+::placeholder,
+body button {
   font-family: 'Jali Arabic', system-ui, sans-serif;
 }
 
@@ -579,41 +580,6 @@ html[dir="rtl"] .content {
 .content.loading-screen svg {
   width: 6rem;
   height: 6rem;
-}
-
-#upload-button {
-  background: var(--neumorphic-button-background);
-  color: var(--text-color);
-  min-width: 5rem;
-  height: 5rem;
-  line-height: 5rem;
-  border-radius: 2.5rem;
-  display: inline-flex;
-  padding: 0 1.5rem;
-  box-sizing: border-box;
-  text-decoration: none;
-  font-size: 1.6rem;
-  font-weight: normal;
-  align-items: center;
-  margin: 0 0 1.5rem;
-  box-shadow: var(--neumorphic-button-shadow);
-  transition: transform 0.3s ease;
-}
-
-#upload-button:hover {
-  filter: brightness(0.9);
-}
-
-#upload-button:active {
-  filter: brightness(0.8);
-  transform: scale(0.95);
-  transition: none;
-}
-
-#upload-button[data-icon]:before {
-  font-size: 2rem;
-  -moz-margin-end: 1rem;
-  margin-inline-end: 1rem;
 }
 
 #back-button {

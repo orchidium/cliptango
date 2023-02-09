@@ -68,6 +68,7 @@
   visibility: hidden;
 }
 
+.video-container > #controls:hover,
 .video-container > #controls:active,
 .video-container > #controls.visible {
   opacity: 1;
@@ -75,8 +76,18 @@
 }
 
 .video-container:fullscreen > #controls {
-  padding: 64px 64px 48px;
+  margin: 1.5rem;
+  padding: 1.5rem;
   box-sizing: border-box;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  min-width: 29rem;
+  max-width: 60rem;
+  background: rgba(51,51,51,0.5);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-radius: 1.5rem;
+  box-shadow: 0 1.5rem 3rem rgba(0,0,0,0.3);
 }
 
 .video-container > #controls .buttons {
@@ -102,13 +113,25 @@
 
 .video-container > #controls .buttons button[data-icon]::before {
   font-size: 2rem;
+  position: static;
+  margin: 0;
+  width: 2rem;
+  height: 4rem;
+  line-height: 4rem;
 }
 
 .video-container > #controls .buttons #controls-volume {
-  max-width: 25rem;
+  max-width: 20rem;
   margin: 0.25rem 0.5rem;
-  margin-inline-end: auto;
+  margin-inline-start: 0;
+  margin-inline-end: 1rem;
   flex: 1;
+  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+}
+
+.video-container > #controls .buttons:not(:hover) #controls-volume {
+  max-width: 0;
+  opacity: 0;
 }
 
 .video-container > #controls .buttons #controls-volume::-moz-range-track {
@@ -116,52 +139,59 @@
 }
 
 .video-container > #controls #controls-current-time {
-  margin: 0 1rem;
-  width: calc(100% - 2rem);
+  height: 0.4rem;
+  width: 100%;
+  margin: 1rem 0 0;
   transition: all 0.5s cubic-bezier(1, 0, 0, 1);
 }
 
 .video-container > #controls #controls-current-time::-moz-range-track,
 .video-container > #controls #controls-current-time::-moz-range-progress,
 .video-container > #controls #controls-current-time::-moz-range-thumb {
-  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+  transition: all 0.5s ease;
 }
 
-.video-container > #controls:not(:hover) #controls-current-time {
-  height: 0.4rem;
-  width: 100%;
-  margin: 0;
+.video-container:fullscreen > #controls #controls-current-time {
+  width: calc(100% - 2rem);
+  margin: 1rem;
+  height: 0.5rem;
 }
 
 .video-container > #controls #controls-current-time::-moz-range-track {
   background: rgba(0,0,0,0.3);
-}
-
-.video-container > #controls:not(:hover) #controls-current-time::-moz-range-track {
   height: 0.4rem;
   border-radius: 0.2rem;
 }
 
-.video-container > #controls:not(:hover) #controls-current-time::-moz-range-progress {
+.video-container > #controls #controls-current-time::-moz-range-progress {
   height: 0.4rem;
   border-radius: 0.2rem;
 }
 
-.video-container > #controls:not(:hover) #controls-current-time::-moz-range-thumb {
-  transform: scale(0);
-  opacity: 0;
+.video-container > #controls #controls-current-time::-moz-range-thumb {
+  background: var(--text-color);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(0,0,0,0.3);
 }
 
 .video-container > #controls .buttons #controls-time {
   font-size: 1.4rem;
   height: 4rem;
   line-height: 4rem;
+  margin-inline-end: auto;
+}
+
+.video-container > #controls .buttons label.pack-switch {
+  margin: -0.5rem 1rem;
+  width: 6rem;
 }
 
 #videoplayer-title {
   font-size: 2.4rem;
   font-weight: normal;
-  margin: 1rem 1.5rem 0;
+  margin: 1rem 1rem 0;
   color: var(--text-color);
   position: relative;
   z-index: 1;
@@ -170,21 +200,95 @@
 #videoplayer-stats {
   font-size: 1.4rem;
   font-weight: normal;
-  margin: 0 1.5rem;
+  margin: 0 1rem;
   color: var(--text-color);
   opacity: 0.5;
   position: relative;
   z-index: 1;
+  display: block;
+}
+
+.videoplayer-buttons {
+  display: flex;
+  height: 4rem;
+  margin: 0.5rem 0 1rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.videoplayer-buttons menu {
+  margin: 0;
+  margin-inline-start: auto;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.videoplayer-buttons menu button {
+  width: unset;
+  min-width: max-content;
+}
+
+.author-figure {
+  height: 4rem;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.author-figure > img {
+  width: 4rem;
+  min-width: 4rem;
+  height: 4rem;
+  border-radius: 2rem;
+  background: var(--background-plus);
+  margin-inline-end: 1rem;
+}
+
+.author-figure > figcaption {
+  width: 100%;
+  height: 4rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.author-figure > figcaption > span {
+  width: 100%;
+  height: 1.8rem;
+  font-size: 1.4rem;
+  opacity: 0.5;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.author-figure > figcaption > span:first-child {
+  opacity: 1;
+  font-size: 1.6rem;
+  height: 2.2rem;
+}
+
+.author-figure > menu {
+  height: 4rem;
+  margin: 0;
+  margin-inline-start: 1rem;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
 }
 
 #videoplayer-description {
-  width: calc(100% - 3rem);
+  width: calc(100% - 2rem);
   padding: 1rem 1.5rem;
   box-sizing: border-box;
   background: var(--background-plus);
   border-radius: 1.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-  margin: 1rem 1.5rem 1.5rem;
+  margin: 1rem;
   font-size: 1.6rem;
   font-weight: normal;
   color: var(--text-color);
@@ -195,6 +299,69 @@
 #recommended {
   position: relative;
   z-index: 1;
+}
+
+/* Picture in picture */
+#videoplayer.pip {
+  top: 100%;
+  transform: translateY(-100%);
+  width: 40rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+  background: var(--background-plus);
+  box-shadow: 0 1rem 2rem rgba(0,0,0,0.3);
+  height: unset;
+}
+html[dir="ltr"] #videoplayer.pip {
+  left: calc(100% - 41rem);
+}
+html[dir="rtl"] #videoplayer.pip {
+  left: 1rem;
+}
+
+#videoplayer-like-button.enabled::before {
+  content: 'liked';
+}
+
+#videoplayer-dislike-button.enabled::before {
+  content: 'disliked';
+}
+
+/* Picture in picture */
+#videoplayer.pip .videoplayer-col:first-child {
+  padding: 0 0 1rem;
+  width: 100%;
+}
+
+#videoplayer.pip .videoplayer-col:not(:first-child) {
+  display: none;
+}
+
+#videoplayer.pip .video-container #controls-fullscreen-button,
+#videoplayer.pip .video-container #controls-options-button,
+#videoplayer.pip .video-container label.pack-switch {
+  display: none;
+}
+
+#videoplayer.pip .video-container > #controls .buttons #controls-volume {
+  max-width: 10rem;
+}
+
+#videoplayer.pip .video-container > #controls .buttons:not(:hover) #controls-volume {
+  max-width: 0;
+}
+
+#videoplayer.pip #videoplayer-title {
+  font-size: 1.8rem;
+}
+
+#videoplayer.pip #videoplayer-description,
+#videoplayer.pip .videoplayer-buttons > menu {
+  display: none;
+}
+
+#videoplayer.pip .videoplayer-buttons > .author-figure {
+  margin: 0;
+  flex-grow: 1;
 }
 
 @media screen and (min-width: 1024px) and (orientation: landscape) {

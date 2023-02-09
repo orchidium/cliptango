@@ -122,6 +122,7 @@
       <ul class="results" id="search-results"></ul>
     </form>
     <h1></h1>
+    <a href="#" id="upload-button" data-icon="upload"></a>
     <a href="#" id="help-button" data-icon="help"></a>
     <a href="#" id="profile-button">
       <img src="" alt="" id="profile-avatar">
@@ -170,7 +171,6 @@
   </div>
 
   <nav id="sidebar">
-    <a href="#" id="upload-button" data-icon="add" data-l10n-id="nav-upload"></a>
     <ul>
       <li><a href="#" data-icon="home" data-l10n-id="nav-home" id="sidebar-videos" aria-selected="true"></a></li>
       <li><a href="#" data-icon="auto-enhance-spark" data-l10n-id="nav-featured" id="sidebar-featured"></a></li>
@@ -184,75 +184,7 @@
     </ul>
   </nav>
 
-  <main id="submit" class="content">
-    <div class="gaia-list">
-      <header data-l10n-id="submit"></header>
-      <ul>
-        <li class="vbox">
-          <p data-l10n-id="submit-icon"></p>
-          <input type="file" name="" id="submit-icon">
-        </li>
-        <li class="vbox">
-          <p data-l10n-id="submit-manifest"></p>
-          <input type="file" name="" id="submit-manifest">
-        </li>
-        <li class="vbox">
-          <p data-l10n-id="submit-package"></p>
-          <input type="file" name="" id="submit-package">
-        </li>
-        <li class="vbox">
-          <p data-l10n-id="submit-categories"></p>
-          <input type="text" name="" id="submit-categories">
-        </li>
-        <li class="vbox">
-          <p data-l10n-id="submit-tags"></p>
-          <input type="text" name="" id="submit-tags">
-        </li>
-        <li class="active">
-          <label class="pack-checkbox reverse">
-            <input type="checkbox" id="submit-has-ads">
-            <span data-l10n-id="submit-hasAds"></span>
-          </label>
-        </li>
-        <li class="active">
-          <label class="pack-checkbox reverse">
-            <input type="checkbox" id="submit-has-tracking">
-            <span data-l10n-id="submit-hasTracking"></span>
-          </label>
-        </li>
-        <li class="vbox">
-          <p data-l10n-id="submit-ageRating"></p>
-          <select name="" id="submit-age-rating">
-            <option value="e" data-l10n-id="ageRating-e"></option>
-            <option value="e10plus" data-l10n-id="ageRating-e10plus"></option>
-            <option value="t" data-l10n-id="ageRating-t"></option>
-            <option value="m" data-l10n-id="ageRating-m"></option>
-            <option value="ao" data-l10n-id="ageRating-ao"></option>
-          </select>
-        </li>
-        <li class="vbox">
-          <p data-l10n-id="submit-price"></p>
-          <input type="number" name="" id="submit-price">
-        </li>
-      </ul>
-      <ul>
-        <li id="submit-button" class="active" data-l10n-id="submit"></li>
-      </ul>
-    </div>
-  </main>
-
   <main id="content" class="content">
-    <div class="warning">
-      <div class="message">
-        <img src="icons/video.svg" alt="">
-        <div>
-          <span data-l10n-id="title"></span>
-          <span data-l10n-id="use-videos-app"></span>
-        </div>
-      </div>
-      <a href="http://videos.localhost:8081/index.html" target="_blank" data-l10n-id="open-videos"></a>
-    </div>
-
     <div id="videos" class="videos grid"></div>
   </main>
 
@@ -293,15 +225,6 @@
             <span data-l10n-id="settings-darkMode"></span>
           </label>
         </li>
-        <li class="active">
-          <label class="pack-checkbox reverse">
-            <input type="checkbox" id="settings-auto-update">
-            <span class="vbox">
-              <span data-l10n-id="settings-autoUpdate"></span>
-              <p data-l10n-id="settings-autoUpdate-detail"></p>
-            </span>
-          </label>
-        </li>
         <li>
           <label class="vbox">
             <span data-l10n-id="settings-language"></span>
@@ -325,16 +248,6 @@
           </label>
         </li>
         <li class="active" id="settings-history-clear" data-l10n-id="settings-clearHistory"></li>
-      </ul>
-
-      <header data-l10n-id="settings-orchid"></header>
-      <ul>
-        <li class="active">
-          <label class="pack-switch reverse">
-            <input type="checkbox" id="settings-limit-apps">
-            <span data-l10n-id="settings-limitApps"></span>
-          </label>
-        </li>
       </ul>
     </div>
 
@@ -386,13 +299,38 @@
             <button id="controls-mute-button" data-icon="sound-max"></button>
             <input type="range" id="controls-volume">
             <span id="controls-time"></span>
+            <label for="" class="pack-switch">
+              <input type="checkbox" name="" id="controls-autoplay">
+              <span></span>
+            </label>
+            <button id="controls-shrink-button" data-icon="picture-in-picture"></button>
+            <button id="controls-options-button" data-icon="settings"></button>
             <button id="controls-fullscreen-button" data-icon="fullscreen"></button>
           </div>
           <input type="range" id="controls-current-time">
         </div>
       </div>
       <h1 id="videoplayer-title"></h1>
-      <date id="videoplayer-stats"></date>
+      <span id="videoplayer-stats"></span>
+      <nav class="videoplayer-buttons">
+        <figure class="author-figure">
+          <img src="" alt="" id="videoplayer-author-avatar">
+          <figcaption>
+            <span id="videoplayer-author-username">Mortism</span>
+            <span id="videoplayer-author-followers" data-l10n-id="video-author-followers"></span>
+          </figcaption>
+          <menu>
+            <button id="videoplayer-author-follow-button" class="recommend" data-l10n-id="video-author-follow"></button>
+          </menu>
+        </figure>
+
+        <menu>
+          <button id="videoplayer-like-button" data-icon="like"></button>
+          <button id="videoplayer-dislike-button" data-icon="dislike"></button>
+          <button id="videoplayer-share-button" data-icon="share" data-l10n-id="video-share"></button>
+          <button id="videoplayer-options-button" data-icon="options" data-l10n-id="video-options"></button>
+        </menu>
+      </nav>
       <div id="videoplayer-description">
         <div id="videoplayer-description-text"></div>
         <div id="videoplayer-description-resize">Read More</div>

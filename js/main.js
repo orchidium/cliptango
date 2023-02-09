@@ -16,35 +16,71 @@
     }
   };
 
-  var bigScreen = window.matchMedia('(min-width: 1024px) and (orientation: landscape)').matches;
-  var elasticScrollEnabled = (localStorage.getItem('ws.videos.elastic_scroll') == 'true') || false;
+  exports.abbreviateNumber = function abbreviateNumber(value) {
+    var newValue = value;
+    if (value >= 1000) {
+      var suffixes = [
+        "",
+        navigator.mozL10n.get("numberUnit-thousand"),
+        navigator.mozL10n.get("numberUnit-million"),
+        navigator.mozL10n.get("numberUnit-billion"),
+        navigator.mozL10n.get("numberUnit-trillion"),
+      ];
+      var suffixNum = Math.floor(("" + value).length / 3);
+      var shortValue = "";
+      for (var precision = 2; precision >= 1; precision--) {
+        shortValue = parseFloat(
+          (suffixNum != 0
+            ? value / Math.pow(1000, suffixNum)
+            : value
+          ).toPrecision(precision)
+        );
+        var dotLessShortValue = (shortValue + "").replace(
+          /[^a-zA-Z 0-9]+/g,
+          ""
+        );
+        if (dotLessShortValue.length <= 2) {
+          break;
+        }
+      }
+      if (shortValue % 1 != 0) shortValue = shortValue.toFixed(1);
+      newValue = shortValue + suffixes[suffixNum];
+    }
+    return newValue;
+  };
+
+  var bigScreen = window.matchMedia(
+    "(min-width: 1024px) and (orientation: landscape)"
+  ).matches;
+  var elasticScrollEnabled =
+    localStorage.getItem("ws.videos.elastic_scroll") == "true" || false;
   if (elasticScrollEnabled) {
     var Scrollbar = window.Scrollbar;
     Scrollbar.use(window.OverscrollPlugin);
-    Scrollbar.init(document.querySelector('#sidebar'), {
+    Scrollbar.init(document.querySelector("#sidebar"), {
       plugins: {
-        overscroll: {}
-      }
+        overscroll: {},
+      },
     });
     if (!bigScreen) {
-      Scrollbar.init(document.querySelector('#videoplayer'), {
+      Scrollbar.init(document.querySelector("#videoplayer"), {
         plugins: {
-          overscroll: {}
-        }
+          overscroll: {},
+        },
       });
     } else {
-      document.querySelectorAll('.content').forEach((item) => {
+      document.querySelectorAll(".content").forEach((item) => {
         Scrollbar.init(item, {
           plugins: {
-            overscroll: {}
-          }
+            overscroll: {},
+          },
         });
       });
-      document.querySelectorAll('.videoplayer-col').forEach((item) => {
+      document.querySelectorAll(".videoplayer-col").forEach((item) => {
         Scrollbar.init(item, {
           plugins: {
-            overscroll: {}
-          }
+            overscroll: {},
+          },
         });
       });
     }
@@ -113,7 +149,7 @@
   var settingsButton = document.getElementById("sidebar-settings");
 
   uploadButton.onclick = () => {
-    openContentView("submit", true);
+    // TODO: Add a upload dialog
   };
 
   homeButton.onclick = () => {
@@ -128,7 +164,7 @@
   };
 
   var isHistoryEnabled =
-    (localStorage.getItem("ws.videos.historyEnabled") == "true") || true;
+    localStorage.getItem("ws.videos.historyEnabled") == "true" || true;
   if (!isHistoryEnabled) {
     historyButton.style.display = "none";
   }

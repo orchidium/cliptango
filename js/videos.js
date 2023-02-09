@@ -21,7 +21,7 @@
 
     var thumbnail = document.createElement("img");
     thumbnail.classList.add("thumbnail");
-    thumbnail.loading = 'lazy';
+    thumbnail.loading = "lazy";
     thumbnails.appendChild(thumbnail);
     OrchidServices.storage.read(data.thumbnail).then((url) => {
       thumbnail.src = url;
@@ -55,17 +55,17 @@
     textHolder.appendChild(stats);
 
     var statsViews = document.createElement("span");
-    statsViews.dataset.l10nId = 'video-views';
-    statsViews.dataset.l10nArgs = '{"n": ' + data.views.length + '}';
+    statsViews.dataset.l10nId = "video-views";
+    statsViews.dataset.l10nArgs = '{"n": ' + data.views.length + "}";
     stats.appendChild(statsViews);
 
     var statsSep = document.createElement("span");
-    statsSep.innerText = ' • ';
+    statsSep.innerText = " • ";
     stats.appendChild(statsSep);
 
     var statsDate = document.createElement("span");
     var timePublished = new Date(data.published_at).toLocaleDateString(
-      navigator.language,
+      navigator.mozL10n.language.code,
       {
         year: "numeric",
         month: "long",
@@ -78,7 +78,7 @@
     statsDate.innerText = timePublished;
     stats.appendChild(statsDate);
 
-    navigator.mozL10n.get('video-views', '{"n": "1"}');
+    navigator.mozL10n.get("video-views", '{"n": "1"}');
 
     var author = document.createElement("a");
     textHolder.appendChild(author);
@@ -106,6 +106,7 @@
     var playPauseButton = document.getElementById("controls-playpause-button");
     var muteButton = document.getElementById("controls-mute-button");
     var volumeSlider = document.getElementById("controls-volume");
+    var shrinkButton = document.getElementById("controls-shrink-button");
     var fullscreenButton = document.getElementById(
       "controls-fullscreen-button"
     );
@@ -115,7 +116,11 @@
     if (isHistoryEnabled) {
       addToHistory(data.token);
     }
-    window.history.pushState({ html: "", pageTitle: "" }, "", "?video=" + data.token);
+    window.history.pushState(
+      { html: "", pageTitle: "" },
+      "",
+      "?video=" + data.token
+    );
     toggleSidebarButton.style.display = "none";
     backButton.style.display = "block";
 
@@ -183,32 +188,40 @@
         durationMinutes = durationMinutes - durationHour * 60;
       }
 
-      currentMinutes = currentMinutes < 10 ? "0" + currentMinutes : currentMinutes;
-      currentSeconds = currentSeconds < 10 ? "0" + currentSeconds : currentSeconds;
-      durationMinutes = durationMinutes < 10 ? "0" + durationMinutes : durationMinutes;
-      durationSeconds = durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
+      currentMinutes =
+        currentMinutes < 10 ? "0" + currentMinutes : currentMinutes;
+      currentSeconds =
+        currentSeconds < 10 ? "0" + currentSeconds : currentSeconds;
+      durationMinutes =
+        durationMinutes < 10 ? "0" + durationMinutes : durationMinutes;
+      durationSeconds =
+        durationSeconds < 10 ? "0" + durationSeconds : durationSeconds;
 
-      let currentTime = currentHour ? currentHour + ":" : "" + currentMinutes + ":" + currentSeconds;
-      let durationTime = durationHour ? durationHour + ":" : "" + durationMinutes + ":" + durationSeconds;
-      time.innerText = currentTime + '/' + durationTime;
+      let currentTime = currentHour
+        ? currentHour + ":"
+        : "" + currentMinutes + ":" + currentSeconds;
+      let durationTime = durationHour
+        ? durationHour + ":"
+        : "" + durationMinutes + ":" + durationSeconds;
+      time.innerText = currentTime + "/" + durationTime;
     };
 
     videoplayerTitle.innerText = data.title;
 
-    videoplayerStats.innerHTML = '';
+    videoplayerStats.innerHTML = "";
 
     var statsViews = document.createElement("span");
-    statsViews.dataset.l10nId = 'video-views';
-    statsViews.dataset.l10nArgs = '{"n": ' + data.views.length + '}';
+    statsViews.dataset.l10nId = "video-views";
+    statsViews.dataset.l10nArgs = '{"n": ' + data.views.length + "}";
     videoplayerStats.appendChild(statsViews);
 
     var statsSep = document.createElement("span");
-    statsSep.innerText = ' • ';
+    statsSep.innerText = " • ";
     videoplayerStats.appendChild(statsSep);
 
     var statsDate = document.createElement("span");
     var timePublished = new Date(data.published_at).toLocaleDateString(
-      navigator.language,
+      navigator.mozL10n.language.code,
       {
         year: "numeric",
         month: "long",
@@ -271,6 +284,10 @@
       player.volume = volumeSlider.value;
     };
 
+    shrinkButton.onclick = () => {
+      videoplayer.classList.toggle("pip");
+    };
+
     fullscreenButton.onclick = () => {
       if (document.fullscreenElement == container) {
         document.exitFullscreen();
@@ -284,6 +301,163 @@
     timeSlider.onchange = () => {
       player.currentTime = timeSlider.value;
     };
+
+    // Author
+    var authorAvatar = document.getElementById("videoplayer-author-avatar");
+    var authorUsername = document.getElementById("videoplayer-author-username");
+    var authorFollowers = document.getElementById(
+      "videoplayer-author-followers"
+    );
+    var followButton = document.getElementById(
+      "videoplayer-author-follow-button"
+    );
+
+    OrchidServices.get("profile/" + data.author_id).then((udata) => {
+      authorAvatar.src = udata.profile_picture;
+      authorAvatar.alt = udata.username;
+      authorUsername.textContent = udata.username;
+      if (udata.followers.length <= 1000) {
+        authorFollowers.dataset.l10nArgs =
+          '{"n": ' + udata.followers.length + "}";
+      } else {
+        authorFollowers.dataset.l10nArgs =
+          '{"n": "' + abbreviateNumber(udata.followers.length) + '"}';
+      }
+
+      if (udata.followers.indexOf(OrchidServices.userId()) !== -1) {
+        followButton.classList.remove("recommend");
+        followButton.dataset.l10nId = "video-author-unfollow";
+      }
+
+      followButton.addEventListener("click", function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        OrchidServices.get("profile/" + udata.token).then((udata) => {
+          if (udata.followers.indexOf(OrchidServices.userId()) === -1) {
+            udata.followers.push(OrchidServices.userId());
+          } else {
+            udata.followers.splice(OrchidServices.userId());
+          }
+
+          OrchidServices.set("profile/" + udata.token, {
+            followers: udata.followers,
+          });
+          if (udata.followers.length <= 1000) {
+            authorFollowers.dataset.l10nArgs =
+              '{"n": ' + udata.followers.length + "}";
+          } else {
+            authorFollowers.dataset.l10nArgs =
+              '{"n": "' + abbreviateNumber(udata.followers.length) + '"}';
+          }
+          followButton.classList.toggle("recommend");
+          if (followButton.classList.contains("recommend")) {
+            followButton.dataset.l10nId = "video-author-follow";
+          } else {
+            followButton.dataset.l10nId = "video-author-unfollow";
+          }
+        });
+      });
+    });
+
+    // Buttons
+    var likeButton = document.getElementById("videoplayer-like-button");
+    var dislikeButton = document.getElementById("videoplayer-dislike-button");
+    var shareButton = document.getElementById("videoplayer-share-button");
+    var optionsButton = document.getElementById("videoplayer-options-button");
+
+    var likeButtonNumber = document.createElement("span");
+    likeButtonNumber.textContent = EnglishToArabicNumerals(
+      abbreviateNumber(data.likes.length)
+    );
+    likeButton.appendChild(likeButtonNumber);
+
+    var likeButtonTooltip = document.createElement("div");
+    likeButtonTooltip.setAttribute("role", "title");
+    likeButtonTooltip.classList.add("bottom");
+    likeButtonTooltip.dataset.l10nId = "post-like";
+    likeButton.appendChild(likeButtonTooltip);
+
+    var dislikeButtonNumber = document.createElement("span");
+    dislikeButtonNumber.textContent = EnglishToArabicNumerals(
+      abbreviateNumber(data.dislikes.length)
+    );
+    dislikeButton.appendChild(dislikeButtonNumber);
+
+    var dislikeButtonTooltip = document.createElement("div");
+    dislikeButtonTooltip.setAttribute("role", "title");
+    dislikeButtonTooltip.classList.add("bottom");
+    dislikeButtonTooltip.dataset.l10nId = "post-dislike";
+    dislikeButton.appendChild(dislikeButtonTooltip);
+
+    if (data.likes.indexOf(OrchidServices.userId()) !== -1) {
+      likeButton.classList.add("enabled");
+    }
+    if (data.dislikes.indexOf(OrchidServices.userId()) !== -1) {
+      dislikeButton.classList.add("enabled");
+    }
+
+    if (!OrchidServices.isUserLoggedIn()) {
+      likeButton.setAttribute("disabled", true);
+      dislikeButton.setAttribute("disabled", true);
+    }
+
+    likeButton.addEventListener("click", function (evt) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      OrchidServices.get("videos/" + data.token).then((data) => {
+        if (data.likes.indexOf(OrchidServices.userId()) === -1) {
+          data.likes.push(OrchidServices.userId());
+        } else {
+          data.likes.splice(OrchidServices.userId());
+        }
+
+        data.dislikes.splice(OrchidServices.userId());
+        dislikeButtonNumber.textContent = EnglishToArabicNumerals(
+          abbreviateNumber(data.dislikes.length)
+        );
+        dislikeButton.classList.remove("enabled");
+        OrchidServices.set("videos/" + data.token, { likes: data.likes });
+        OrchidServices.set("videos/" + data.token, {
+          dislikes: data.dislikes,
+        });
+        likeButtonNumber.textContent = EnglishToArabicNumerals(
+          abbreviateNumber(data.likes.length)
+        );
+        likeButton.classList.toggle("enabled");
+      });
+    });
+
+    dislikeButton.addEventListener("click", function (evt) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      OrchidServices.get("videos/" + data.token).then((data) => {
+        if (data.dislikes.indexOf(OrchidServices.userId()) === -1) {
+          data.dislikes.push(OrchidServices.userId());
+        } else {
+          data.dislikes.splice(OrchidServices.userId());
+        }
+
+        data.likes.splice(OrchidServices.userId());
+        likeButtonNumber.textContent = EnglishToArabicNumerals(
+          abbreviateNumber(data.likes.length)
+        );
+        likeButton.classList.remove("enabled");
+        OrchidServices.set("videos/" + data.token, { likes: data.likes });
+        OrchidServices.set("videos/" + data.token, {
+          dislikes: data.dislikes,
+        });
+        dislikeButtonNumber.textContent = EnglishToArabicNumerals(
+          abbreviateNumber(data.dislikes.length)
+        );
+        dislikeButton.classList.toggle("enabled");
+      });
+    });
+
+    var shareButtonTooltip = document.createElement("div");
+    shareButtonTooltip.setAttribute("role", "title");
+    shareButtonTooltip.classList.add("bottom");
+    shareButtonTooltip.dataset.l10nId = "post-share";
+    shareButton.appendChild(shareButtonTooltip);
 
     // Recommendations
     videoplayerRecommendation.innerHTML = "";
